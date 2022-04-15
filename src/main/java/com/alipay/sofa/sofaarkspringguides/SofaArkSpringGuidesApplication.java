@@ -13,6 +13,9 @@ public class SofaArkSpringGuidesApplication {
 
 		ConfigurableApplicationContext context = SpringApplication.run(SofaArkSpringGuidesApplication.class, args);
 		context.getBean("sampleService");
+		System.out.println("SofaArkSpringGuidesApplication start!");
+		System.out.println("Spring Boot Version: " + SpringApplication.class.getPackage().getImplementationVersion());
+		System.out.println("SofaArkSpringGuidesApplication classLoader: " + SofaArkSpringGuidesApplication.class.getClassLoader());
 
 	}
 
