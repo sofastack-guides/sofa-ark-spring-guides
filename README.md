@@ -85,7 +85,7 @@ SOFAArk 当前最新版本号为 2.0.0
 
 启动后会先启动 Ark 容器
 
-![image.png](http://serverless-paas-code-package-prod.cn-hangzhou.alipay.aliyun-inc.com/ark/container.png?OSSAccessKeyId=LTAI4FqovVkytK8CGbQARPSY&Expires=1650758916&Signature=q8%2BNfQSzuobs1gczkH9xT9vPUv4%3D)
+![image.png](https://gw.alipayobjects.com/mdn/rms_10eaa2/afts/img/A*po9CSo832lQAAAAAAAAAAAAAARQnAQ)
 
 有该日志出现代表 Ark 容器启动成功，此时该应用处于运行时，可进行动态模块的安装，卸载。
 
@@ -95,14 +95,15 @@ Ark包是可执行Jar，可直接使用Java -jar的方式启动，先使用 mvn 
 
 > java -jar -Dsofa.ark.embed.enable=true -Dcom.alipay.sofa.ark.master.biz=sofa-ark-spring-guides sofa-ark-spring-guides-0.0.1-SNAPSHOT-ark-biz.jar
 
-![image.png](http://serverless-paas-code-package-prod.cn-hangzhou.alipay.aliyun-inc.com/ark/success.png?OSSAccessKeyId=LTAI4FqovVkytK8CGbQARPSY&Expires=1650764789&Signature=Hg%2FCGIW5HfrfdJ4Ilf1x2fri2aA%3D)
+![image.png](https://gw.alipayobjects.com/mdn/rms_10eaa2/afts/img/A*grssQq4_N04AAAAAAAAAAAAAARQnAQ)
 
 ### 6、Telnet指令
 
 SOFAArk官方提供了本地运维模块小工具 [Telnet指令](https://www.sofastack.tech/projects/sofa-boot/sofa-ark-ark-telnet/)
 
 > telnet localhost 1234
-![image.png](http://serverless-paas-code-package-prod.cn-hangzhou.alipay.aliyun-inc.com/ark/telnet.png?OSSAccessKeyId=LTAI4FqovVkytK8CGbQARPSY&Expires=1650759357&Signature=1oGP8LSVA3yX1OTfN%2FCwjMxB%2Fsw%3D)
+
+![image.png](https://gw.alipayobjects.com/mdn/rms_10eaa2/afts/img/A*sy1uSZVKT_YAAAAAAAAAAAAAARQnAQ)
 
 > biz -a 
 
@@ -137,7 +138,7 @@ Spring Boot Version: 2.6.6
 SofaArkSpringGuidesApplication classLoader: org.springframework.boot.loader.LaunchedURLClassLoader@366e2eef
 ```
 
-![image.png](http://serverless-paas-code-package-prod.cn-hangzhou.alipay.aliyun-inc.com/ark/success.png?OSSAccessKeyId=LTAI4FqovVkytK8CGbQARPSY&Expires=1650766300&Signature=O6WnRVcrKomo%2FjqxuCVrQcGS1Ns%3D)
+![image.png](https://gw.alipayobjects.com/mdn/rms_10eaa2/afts/img/A*grssQq4_N04AAAAAAAAAAAAAARQnAQ)
 
 和 动态安装的模块应用spring-boot-ark-biz是Spring Boot 2.5.0，由Ark框架提供的com.alipay.sofa.ark.container.service.classloader.BizClassLoader加载
 ```bash
@@ -146,6 +147,6 @@ SpringBootArkBizApplication spring boot version: 2.5.0
 SpringBootArkBizApplication classLoader: com.alipay.sofa.ark.container.service.classloader.BizClassLoader@52a1e30
 ```
 
-![image.png](http://serverless-paas-code-package-prod.cn-hangzhou.alipay.aliyun-inc.com/ark/success2.png?OSSAccessKeyId=LTAI4FqovVkytK8CGbQARPSY&Expires=1650766724&Signature=wj0U00tFGEaPmWx9Yb5elC9rf0M%3D)
+![image.png](https://gw.alipayobjects.com/mdn/rms_10eaa2/afts/img/A*09ZnRKaPjcQAAAAAAAAAAAAAARQnAQ)
 
 
