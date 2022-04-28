@@ -91,7 +91,7 @@ SOFAArk 当前最新版本号为 2.0.0
 
 #### 方式二：命令行启动
 
-Ark包是可执行Jar，可直接使用Java -jar的方式启动，先使用 mvn clean package 进行打包，打包得到 sofa-ark-spring-guides-0.0.1-SNAPSHOT-ark-biz.jar，命令行启动
+Ark包是可执行Jar，可直接使用Java -jar的方式启动，先使用 mvn clean package -Dmaven.test.skip=true 进行打包，打包得到 sofa-ark-spring-guides-0.0.1-SNAPSHOT-ark-biz.jar，命令行启动
 
 > java -jar -Dsofa.ark.embed.enable=true -Dcom.alipay.sofa.ark.master.biz=sofa-ark-spring-guides sofa-ark-spring-guides-0.0.1-SNAPSHOT-ark-biz.jar
 
