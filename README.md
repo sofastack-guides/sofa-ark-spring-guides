@@ -9,13 +9,15 @@
 
 ### 1、任务准备
 
-从 github 上将 demo 工程克隆到本地
+从 github 上将 demo 工程和动态模块工程 克隆到本地
 
 ```bash
-git clone git@github.com:sofastack-guides/sofa-ark-spring-guides.git
+git clone git@github.com:sofastack-guides/sofa-ark-spring-guides.git   // master biz
+
+git clone git@github.com:sofastack-guides/spring-boot-ark-biz.git      // 动态模块
 ```
 
-然后将工程导入到 IDEA 或者 eclipse，该工程是使用 [Spring脚手架](https://start.spring.io/) 生成；
+然后将工程 sofa-ark-spring-guides 导入到 IDEA 或者 eclipse 打开，该工程是使用 [Spring脚手架](https://start.spring.io/) 生成；
 
 ### 2、添加 SOFAArk 相关依赖
 
@@ -111,7 +113,7 @@ SOFAArk官方提供了本地运维模块小工具 [Telnet指令](https://www.sof
 
 现在来尝试运行时动态安装新模块，模块应用使用了另一个Spring Boot应用打成的Ark包  spring-boot-ark-biz-0.0.1-SNAPSHOT-ark-biz.jar， 用于动态安装；
 
-从 [spring-boot-ark-biz项目](https://github.com/sofastack-guides/spring-boot-ark-biz) 下载spring-boot-ark-biz源码，本地运行 mvn clean package -Dmaven.test.skip=true 打包，将在项目根目录 /target 下获得 spring-boot-ark-biz-0.0.1-SNAPSHOT-ark-biz.jar
+从 [spring-boot-ark-biz项目](https://github.com/sofastack-guides/spring-boot-ark-biz) 下载spring-boot-ark-biz源码（在任务准备阶段已下载好spring-boot-ark-biz），本地运行 mvn clean package -Dmaven.test.skip=true 打包，将在项目根目录 /target 下获得 spring-boot-ark-biz-0.0.1-SNAPSHOT-ark-biz.jar
 
 ```bash
 ## 连接 SOFAArk telnet
