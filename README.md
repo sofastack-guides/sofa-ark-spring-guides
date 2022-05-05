@@ -107,16 +107,18 @@ SOFAArk官方提供了本地运维模块小工具 [Telnet指令](https://www.sof
 
 > biz -a 
 
-查看该应用中所有模块，当前只有name=spring-guides，version=1.0.0，status=activated的宿主应用。
+查看该应用中所有模块，当前只有name=sofa-ark-spring-guides，version=1.0.0，status=activated的宿主应用。
 
 现在来尝试运行时动态安装新模块，模块应用使用了另一个Spring Boot应用打成的Ark包  spring-boot-ark-biz-0.0.1-SNAPSHOT-ark-biz.jar， 用于动态安装；
+
+从 [spring-boot-ark-biz项目](https://github.com/sofastack-guides/spring-boot-ark-biz) 下载spring-boot-ark-biz源码，本地运行 mvn clean package -Dmaven.test.skip=true 打包，将在项目根目录 /target 下获得 spring-boot-ark-biz-0.0.1-SNAPSHOT-ark-biz.jar
 
 ```bash
 ## 连接 SOFAArk telnet
 > telnet localhost 1234
 
-## 安装新版本 dynamic-provider
-sofa-ark>biz -i file:////Users/yuanyuan/yuanyuan/Code/spring-boot-ark-biz/target/spring-boot-ark-biz-0.0.1-SNAPSHOT-ark-biz.jar
+## 安装新模块 spring-boot-ark-biz
+sofa-ark>biz -i file:///Users/yuanyuan/yuanyuan/Code/spring-boot-ark-biz/target/spring-boot-ark-biz-0.0.1-SNAPSHOT-ark-biz.jar
 Start to process install command now, pls wait and check.
 
 ## 查看安装的模块信息
