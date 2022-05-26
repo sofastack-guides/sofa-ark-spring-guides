@@ -18,7 +18,7 @@
 
 	<properties>
 		<java.version>1.8</java.version>
-		<sofa.ark.version>2.0.0</sofa.ark.version>
+		<sofa.ark.version>2.0.1-SNAPSHOT</sofa.ark.version>
 	</properties>
 
 	<dependencies>
@@ -35,6 +35,10 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-logging</artifactId>
+		</dependency>
 
 
 
@@ -42,6 +46,11 @@
 		<dependency>
 			<groupId>com.alipay.sofa</groupId>
 			<artifactId>sofa-ark-springboot-starter</artifactId>
+			<version>${sofa.ark.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.alipay.sofa</groupId>
+			<artifactId>web-ark-plugin</artifactId>
 			<version>${sofa.ark.version}</version>
 		</dependency>
 		<dependency>
