@@ -150,6 +150,7 @@ SpringBootArkBizApplication start!
 SpringBootArkBizApplication spring boot version: 2.5.0
 SpringBootArkBizApplication classLoader: com.alipay.sofa.ark.container.service.classloader.BizClassLoader@52a1e30
 ```
+模块安装成功后，可以通过浏览器访问 [localhost:8080/biz/](http://localhost:8080/biz/)，启动路径中的 biz 为模块打包插件里设置的 webContextPath，可以看到返回 `hello to ark dynamic deploy`
 
 ![image.png](https://gw.alipayobjects.com/mdn/rms_10eaa2/afts/img/A*09ZnRKaPjcQAAAAAAAAAAAAAARQnAQ)
 
