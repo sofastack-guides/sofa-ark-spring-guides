@@ -154,4 +154,4 @@ SpringBootArkBizApplication classLoader: com.alipay.sofa.ark.container.service.c
 
 ![image.png](https://gw.alipayobjects.com/mdn/rms_10eaa2/afts/img/A*09ZnRKaPjcQAAAAAAAAAAAAAARQnAQ)
 
-
+注意由于本例子未注册 `com.alipay.sofa.ark.spi.event.biz.BeforeBizStopEvent`，所以不具备动态卸载能力。
