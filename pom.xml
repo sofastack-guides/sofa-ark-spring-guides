@@ -18,7 +18,7 @@
 
 	<properties>
 		<java.version>1.8</java.version>
-		<sofa.ark.version>2.0.6</sofa.ark.version>
+		<sofa.ark.version>2.1.3</sofa.ark.version>
 	</properties>
 
 	<dependencies>
@@ -63,6 +63,15 @@
 			<artifactId>sofa-ark-api</artifactId>
 			<version>${sofa.ark.version}</version>
 		</dependency>
+
+<!--		静态合并部署-->
+<!--		<dependency>-->
+<!--			<groupId>com.alipay.sofa</groupId>-->
+<!--			<artifactId>spring-boot-ark-biz</artifactId>-->
+<!--			<version>0.0.1-SNAPSHOT</version>-->
+<!--			<classifier>ark-biz</classifier>-->
+<!--		</dependency>-->
+
 	</dependencies>
 
 

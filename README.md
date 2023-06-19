@@ -26,7 +26,7 @@ SOFAArk 当前最新版本号为 2.0.0
 ```xml
 <!-- 这里添加动态模块相关依赖 -->
 <properties>
-    <sofa.ark.version>2.0.0</sofa.ark.version>
+    <sofa.ark.version>2.1.3</sofa.ark.version>
 </properties>
 
 <dependency>
@@ -153,5 +153,63 @@ SpringBootArkBizApplication classLoader: com.alipay.sofa.ark.container.service.c
 模块安装成功后，可以通过浏览器访问 [localhost:8080/biz/](http://localhost:8080/biz/)，启动路径中的 biz 为模块打包插件里设置的 webContextPath，可以看到返回 `hello to ark dynamic deploy`
 
 ![image.png](https://gw.alipayobjects.com/mdn/rms_10eaa2/afts/img/A*09ZnRKaPjcQAAAAAAAAAAAAAARQnAQ)
+
+**注意**：由于本例子未注册 `com.alipay.sofa.ark.spi.event.biz.BeforeBizStopEvent`，所以不具备动态卸载能力。
+
+### 6、静态合并部署模块应用
+
+静态合并部署是指 master biz（宿主应用）打包启动后将 pom 中依赖的 ark biz（模块应用）启动。
+
+首先，将 [spring-boot-ark-biz](https://github.com/sofastack-guides/spring-boot-ark-biz) （模块应用）修改打包配置，并安装至仓库。
+
+给 sofa-ark-maven-plugin 打包插件添加配置 `<attach>` 如下：
+
+```xml
+<build>
+    <plugins>
+        <plugin>
+            <groupId>com.alipay.sofa</groupId>
+            <artifactId>sofa-ark-maven-plugin</artifactId>
+            <version>2.1.3</version>
+            <!--      ...       -->
+            <configuration>
+                <!--        ...     -->
+                <!--  attach指：打包、安装和发布 ark biz -->
+                <!-- 静态合并部署需要配置attach -->
+                <attach>true</attach>
+            </configuration>
+        </plugin>
+    </plugins>
+</build>
+```
+
+安装 [spring-boot-ark-biz](https://github.com/sofastack-guides/spring-boot-ark-biz) （模块应用）至仓库：
+
+```bash
+mvn clean install -Dmaven.test.skip=true
+```
+
+安装成功后，.m2仓库中将会有 spring-boot-ark-biz 的 ark-biz 包，即：spring-boot-ark-biz-0.0.1-SNAPSHOT-ark-biz.jar，其路径为：
+
+- {maven仓库路径}\repository\com\alipay\sofa\spring-boot-ark-biz\0.0.1-SNAPSHOT\spring-boot-ark-biz-0.0.1-SNAPSHOT-ark-biz.jar
+
+然后，给宿主应用添加 ark biz 依赖。
+
+```xml
+<dependency>
+    <groupId>com.alipay.sofa</groupId>
+    <artifactId>spring-boot-ark-biz</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <classifier>ark-biz</classifier>
+</dependency>
+```
+
+最后，添加启动参数（VM Options）如下：
+
+> -Dsofa.ark.embed.enable=true -Dsofa.ark.embed.static.biz.enable=true
+
+按照 [IDEA启动](#41) 或 [命令行启动](#42)。
+
+启动后，可通过 Telnet 工具查看到 spring-boot-ark-biz （模块应用）已经安装启动了：
 
 注意由于本例子未注册 `com.alipay.sofa.ark.spi.event.biz.BeforeBizStopEvent`，所以不具备动态卸载能力。
