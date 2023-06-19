@@ -2,8 +2,9 @@
 
 ## 实验内容
 
-- 通过 [SOFAArk](https://github.com/sofastack/sofa-ark) 提供的官方maven插件将一个 Spring Boot 应用启动成一个标准Ark包，即宿主机；
-- 通过 [Telnet指令](https://www.sofastack.tech/projects/sofa-boot/sofa-ark-ark-telnet/) 动态安装另一个Spring Boot应用到宿主机上，同时在JVM中运行；
+- 构建宿主应用：通过 [SOFAArk](https://github.com/sofastack/sofa-ark) 提供的官方maven插件将一个 Spring Boot 应用启动成一个标准Ark包，即宿主应用；
+- 动态安装模块应用：通过 [Telnet指令](https://www.sofastack.tech/projects/sofa-boot/sofa-ark-ark-telnet/) 动态安装另一个Spring Boot应用（模块应用）到宿主应用上，同时在JVM中运行；
+- 静态合并部署模块应用：通过配置静态合并部署另一个Spring Boot应用（模块应用）到宿主应用上，同时在JVM中运行；
 
 ## 任务
 
@@ -17,11 +18,13 @@ git clone git@github.com:sofastack-guides/sofa-ark-spring-guides.git   // master
 git clone git@github.com:sofastack-guides/spring-boot-ark-biz.git      // 动态模块
 ```
 
+其中，sofa-ark-spring-guides 将作为宿主应用，spring-boot-ark-biz 将作为模块应用。
+
 然后将工程 sofa-ark-spring-guides 导入到 IDEA 或者 eclipse 打开，该工程是使用 [Spring脚手架](https://start.spring.io/) 生成；
 
 ### 2、添加 SOFAArk 相关依赖
 
-SOFAArk 当前最新版本号为 2.0.0
+添加 SOFAArk 最新版本号 （目前版本为：2.1.1）
 
 ```xml
 <!-- 这里添加动态模块相关依赖 -->
@@ -73,17 +76,13 @@ SOFAArk 当前最新版本号为 2.0.0
 </build>
 ```
 
-### 4. 包结构
+### 4、启动宿主应用
 
-### 5、启动
+<h4 id="41">方式一：IDEA启动</h4>
 
-#### 方式一：IDEA启动
+本地启动需要加上**启动参数（VM Options）**
 
-本地启动需要加上启动参数
-
-> -Dsofa.ark.embed.enable=true 
-
-> -Dcom.alipay.sofa.ark.master.biz=sofa-ark-spring-guides
+> -Dsofa.ark.embed.enable=true
 
 启动后会先启动 Ark 容器
 
@@ -91,15 +90,15 @@ SOFAArk 当前最新版本号为 2.0.0
 
 有该日志出现代表 Ark 容器启动成功，此时该应用处于运行时，可进行动态模块的安装，卸载。
 
-#### 方式二：命令行启动
+<h4 id="42">方式二：命令行启动</h4>
 
 Ark包是可执行Jar，可直接使用Java -jar的方式启动，先使用 mvn clean package -Dmaven.test.skip=true 进行打包，打包得到 sofa-ark-spring-guides-0.0.1-SNAPSHOT-ark-biz.jar，命令行启动
 
-> java -jar -Dsofa.ark.embed.enable=true -Dcom.alipay.sofa.ark.master.biz=sofa-ark-spring-guides sofa-ark-spring-guides-0.0.1-SNAPSHOT-ark-biz.jar
+> java -jar -Dsofa.ark.embed.enable=true sofa-ark-spring-guides-0.0.1-SNAPSHOT-ark-biz.jar
 
 ![image.png](https://gw.alipayobjects.com/mdn/rms_10eaa2/afts/img/A*grssQq4_N04AAAAAAAAAAAAAARQnAQ)
 
-### 6、Telnet指令
+### 5、动态安装模块应用
 
 SOFAArk官方提供了本地运维模块小工具 [Telnet指令](https://www.sofastack.tech/projects/sofa-boot/sofa-ark-ark-telnet/)
 
@@ -120,7 +119,10 @@ SOFAArk官方提供了本地运维模块小工具 [Telnet指令](https://www.sof
 > telnet localhost 1234
 
 ## 安装新模块 spring-boot-ark-biz
-sofa-ark>biz -i file:///Users/yuanyuan/yuanyuan/Code/spring-boot-ark-biz/target/spring-boot-ark-biz-0.0.1-SNAPSHOT-ark-biz.jar
+## mac 系统安装
+sofa-ark>biz -i file:///{本地目录}/spring-boot-ark-biz/target/spring-boot-ark-biz-0.0.1-SNAPSHOT-ark-biz.jar
+## win 系统安装
+sofa-ark>biz -i file:\\\{本地目录}\\spring-boot-ark-biz\\target\\spring-boot-ark-biz-0.0.1-SNAPSHOT-ark-biz.jar
 Start to process install command now, pls wait and check.
 
 ## 查看安装的模块信息
@@ -130,9 +132,7 @@ spring-boot-ark-biz:0.0.1-SNAPSHOT:activated    // 动态安装的模块应用
 biz count = 2
 ```
 
-当前JVM中同时运行着两个Spring Boot应用
-
-两个Spring Boot应用可以是不同的Spring Boot版本，由各自的ClassLoader进行加载；
+当前JVM中同时运行着两个Spring Boot应用，应用由各自的ClassLoader进行加载。由于模块应用开启了 declared 模式，模块应用会使用宿主应用的 Spring Boot 依赖。
 
 如，宿主应用sofa-ark-spring-guides是Spring Boot 2.6.6，由org.springframework.boot.loader.LaunchedURLClassLoader加载
 
@@ -144,15 +144,13 @@ SofaArkSpringGuidesApplication classLoader: org.springframework.boot.loader.Laun
 
 ![image.png](https://gw.alipayobjects.com/mdn/rms_10eaa2/afts/img/A*grssQq4_N04AAAAAAAAAAAAAARQnAQ)
 
-和 动态安装的模块应用spring-boot-ark-biz是Spring Boot 2.5.0，由Ark框架提供的com.alipay.sofa.ark.container.service.classloader.BizClassLoader加载
+和 动态安装的模块应用 spring-boot-ark-biz 使用的 Spring Boot 是宿主应用的依赖版本 2.6.6，由Ark框架提供的com.alipay.sofa.ark.container.service.classloader.BizClassLoader加载
 ```bash
 SpringBootArkBizApplication start!
-SpringBootArkBizApplication spring boot version: 2.5.0
+SpringBootArkBizApplication spring boot version: 2.6.6
 SpringBootArkBizApplication classLoader: com.alipay.sofa.ark.container.service.classloader.BizClassLoader@52a1e30
 ```
 模块安装成功后，可以通过浏览器访问 [localhost:8080/biz/](http://localhost:8080/biz/)，启动路径中的 biz 为模块打包插件里设置的 webContextPath，可以看到返回 `hello to ark dynamic deploy`
-
-![image.png](https://gw.alipayobjects.com/mdn/rms_10eaa2/afts/img/A*09ZnRKaPjcQAAAAAAAAAAAAAARQnAQ)
 
 **注意**：由于本例子未注册 `com.alipay.sofa.ark.spi.event.biz.BeforeBizStopEvent`，所以不具备动态卸载能力。
 
@@ -212,4 +210,15 @@ mvn clean install -Dmaven.test.skip=true
 
 启动后，可通过 Telnet 工具查看到 spring-boot-ark-biz （模块应用）已经安装启动了：
 
-注意由于本例子未注册 `com.alipay.sofa.ark.spi.event.biz.BeforeBizStopEvent`，所以不具备动态卸载能力。
+```bash
+## 连接 SOFAArk telnet
+> telnet localhost 1234
+
+## 查看安装的模块信息
+sofa-ark>biz -a
+sofa-ark-spring-guides:1.0.0:activated          // 宿主应用
+spring-boot-ark-biz:0.0.1-SNAPSHOT:activated    // 静态合并部署的模块应用
+biz count = 2
+```
+
+可以通过浏览器访问 [localhost:8080/biz/](http://localhost:8080/biz/)，启动路径中的 biz 为模块打包插件里设置的 webContextPath，可以看到返回 `hello to ark dynamic deploy`。
