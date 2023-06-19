@@ -29,7 +29,7 @@ git clone git@github.com:sofastack-guides/spring-boot-ark-biz.git      // 动态
 ```xml
 <!-- 这里添加动态模块相关依赖 -->
 <properties>
-    <sofa.ark.version>2.1.1</sofa.ark.version>
+    <sofa.ark.version>2.1.3</sofa.ark.version>
 </properties>
 
 <dependency>
@@ -168,7 +168,7 @@ SpringBootArkBizApplication classLoader: com.alipay.sofa.ark.container.service.c
         <plugin>
             <groupId>com.alipay.sofa</groupId>
             <artifactId>sofa-ark-maven-plugin</artifactId>
-            <version>2.1.1</version>
+            <version>2.1.3</version>
             <!--      ...       -->
             <configuration>
                 <!--        ...     -->
