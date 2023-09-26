@@ -1,4 +1,4 @@
-package com.alipay.sofa.impl;
+package com.alipay.sofa.sofaarkspringguides.impl;
 
 import com.alipay.sofa.facade.SampleService;
 import org.springframework.stereotype.Service;
@@ -10,4 +10,5 @@ public class SampleServiceImpl implements SampleService {
     public String service() {
         return "A Sample Service";
     }
+
 }
