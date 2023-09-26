@@ -1,128 +1,108 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.6.6</version>
-		<relativePath/> <!-- lookup parent from repository -->
-	</parent>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.7.16</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
 
-	<groupId>com.alipay.sofa</groupId>
-	<artifactId>sofa-ark-spring-guides</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<name>sofa-ark-spring-guides</name>
-	<description>Demo project for Spring Boot</description>
+    <groupId>com.alipay.sofa</groupId>
+    <artifactId>sofa-ark-spring-guides</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>sofa-ark-spring-guides</name>
+    <description>Demo project for Spring Boot</description>
+    <packaging>pom</packaging>
 
-	<properties>
-		<java.version>1.8</java.version>
-		<sofa.ark.version>2.1.3</sofa.ark.version>
-	</properties>
+    <properties>
+        <spring.boot.version>2.7.16</spring.boot.version>
+        <java.version>1.8</java.version>
+        <sofa.ark.version>2.2.3</sofa.ark.version>
+        <sofa.serverless.runtime.version>0.3.3</sofa.serverless.runtime.version>
+    </properties>
 
-	<dependencies>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-logging</artifactId>
-		</dependency>
+    <modules>
+        <module>samples/web/tomcat/base</module>
+        <module>samples/web/tomcat/biz1</module>
+        <module>samples/web/tomcat/biz2</module>
+    </modules>
 
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-web</artifactId>
+                <version>${spring.boot.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.springframework.boot</groupId>
+                        <artifactId>spring-boot-starter-logging</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
 
+            <!-- 这里添加动态模块相关依赖 -->
+            <dependency>
+                <groupId>com.alipay.sofa.serverless</groupId>
+                <artifactId>sofa-serverless-base-starter</artifactId>
+                <version>${sofa.serverless.runtime.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>ch.qos.logback</groupId>
+                        <artifactId>logback-core</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>ch.qos.logback</groupId>
+                        <artifactId>logback-classic</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>com.alipay.sofa</groupId>
+                <artifactId>web-ark-plugin</artifactId>
+                <version>${sofa.ark.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>ch.qos.logback</groupId>
+                        <artifactId>logback-core</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>ch.qos.logback</groupId>
+                        <artifactId>logback-classic</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
-		<!-- 这里添加动态模块相关依赖 -->
-		<dependency>
-			<groupId>com.alipay.sofa</groupId>
-			<artifactId>sofa-ark-springboot-starter</artifactId>
-			<version>${sofa.ark.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>com.alipay.sofa</groupId>
-			<artifactId>web-ark-plugin</artifactId>
-			<version>${sofa.ark.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>com.alipay.sofa</groupId>
-			<artifactId>sofa-ark-all</artifactId>
-			<version>${sofa.ark.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>com.alipay.sofa</groupId>
-			<artifactId>sofa-ark-api</artifactId>
-			<version>${sofa.ark.version}</version>
-		</dependency>
-
-<!--		静态合并部署-->
-<!--		<dependency>-->
-<!--			<groupId>com.alipay.sofa</groupId>-->
-<!--			<artifactId>spring-boot-ark-biz</artifactId>-->
-<!--			<version>0.0.1-SNAPSHOT</version>-->
-<!--			<classifier>ark-biz</classifier>-->
-<!--		</dependency>-->
-
-	</dependencies>
-
-
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-				<version>2.6.6</version>
-
-				<configuration>
-					<outputDirectory>target</outputDirectory>
-					<classifier>ark-biz</classifier>
-				</configuration>
-				<executions>
-					<execution>
-						<id>package</id>
-						<goals>
-							<goal>repackage</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-		</plugins>
-	</build>
-
-	<profiles>
-		<profile>
-			<id>default</id>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
-			<repositories>
-				<repository>
-					<snapshots>
-						<enabled>true</enabled>
-					</snapshots>
-					<id>ark-snapshot</id>
-					<url>https://oss.sonatype.org/content/repositories/snapshots</url>
-				</repository>
-			</repositories>
-			<pluginRepositories>
-				<pluginRepository>
-					<snapshots>
-						<enabled>true</enabled>
-					</snapshots>
-					<id>ark-snapshot</id>
-					<url>https://oss.sonatype.org/content/repositories/snapshots</url>
-				</pluginRepository>
-			</pluginRepositories>
-		</profile>
-	</profiles>
+    <profiles>
+        <profile>
+            <id>default</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <repositories>
+                <repository>
+                    <snapshots>
+                        <enabled>true</enabled>
+                    </snapshots>
+                    <id>ark-snapshot</id>
+                    <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+                </repository>
+            </repositories>
+            <pluginRepositories>
+                <pluginRepository>
+                    <snapshots>
+                        <enabled>true</enabled>
+                    </snapshots>
+                    <id>ark-snapshot</id>
+                    <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+                </pluginRepository>
+            </pluginRepositories>
+        </profile>
+    </profiles>
 
 </project>
