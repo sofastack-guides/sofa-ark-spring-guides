@@ -1,4 +1,4 @@
-package com.alipay.sofa.biz1;
+package com.alipay.sofa.web.biz1;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

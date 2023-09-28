@@ -1,4 +1,4 @@
-package com.alipay.sofa.biz1;
+package com.alipay.sofa.web.biz1;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
